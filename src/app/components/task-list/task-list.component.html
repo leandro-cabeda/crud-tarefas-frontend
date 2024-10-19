@@ -1,0 +1,72 @@
+<main class="main">
+  <div class="content">
+    <h1>Tarefas</h1>
+
+    <button [routerLink]="['/create']" class="btn btn-primary">Adicionar Nova Tarefa</button>
+
+    <button [routerLink]="['/completed']" class="btn btn-secondary">Tarefas Concluídas</button>
+
+    <input [formControl]="searchControl" placeholder="Buscar por título" />
+
+    <div>
+      <label>Status:</label>
+      <select [(ngModel)]="filters.status" (change)="updateFilters()">
+        <option value>Todos</option>
+        <option value="pending">Pendente</option>
+        <option value="completed">Concluída</option>
+      </select>
+
+      <label>Prioridade:</label>
+      <select [(ngModel)]="filters.priority" (change)="updateFilters()">
+        <option value>Todas</option>
+        <option value="low">Baixa</option>
+        <option value="medium">Média</option>
+        <option value="high">Alta</option>
+      </select>
+
+      <label>Ordenar por:</label>
+      <select [(ngModel)]="filters.sortBy" (change)="updateFilters()">
+        <option value>Selecione</option>
+        <option value="createdAt">Data de Criação</option>
+        <option value="priority">Prioridade</option>
+      </select>
+
+      <label>Ordem por:</label>
+      <select [(ngModel)]="filters.sortOrder" (change)="updateFilters()">
+        <option value>Selecione</option>
+        <option value="asc">Crescente</option>
+        <option value="desc">Decrescente</option>
+      </select>
+
+      <label>Data de Criação:</label>
+      <input type="date" [(ngModel)]="filters.createdAt"
+        (change)="updateFilters()" />
+    </div>
+
+    <div *ngIf="tasks.length === 0">
+      <p>Nenhuma tarefa encontrada.</p>
+    </div>
+
+    <ul *ngIf="tasks.length > 0">
+      <li *ngFor="let task of tasks">
+        {{ task.title }} - {{ task.status }} - {{ task.priority }} - {{
+        task.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}
+        <button (click)="deleteTask(task.id!)">Excluir</button>
+        <a [routerLink]="['/edit', task.id]">Editar</a>
+      </li>
+    </ul>
+
+    <div *ngIf="totalPages > 1">
+      <button (click)="changePage(1)"
+        [disabled]="filters.page === 1">Primeira</button>
+      <button (click)="changePage(filters.page - 1)"
+        [disabled]="filters.page === 1">Anterior</button>
+      Página {{ filters.page }} de {{ totalPages }}
+      <button (click)="changePage(filters.page + 1)"
+        [disabled]="filters.page === totalPages">Próxima</button>
+      <button (click)="changePage(totalPages)"
+        [disabled]="filters.page === totalPages">Última</button>
+    </div>
+
+  </div>
+</main>

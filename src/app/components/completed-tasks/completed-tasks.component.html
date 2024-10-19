@@ -1,0 +1,18 @@
+<main class="main">
+  <div class="content">
+      <h2>Tarefas Concluídas</h2>
+
+      <div *ngIf="completedTasks.length === 0">
+        <p>Nenhuma tarefa concluída encontrada.</p>
+      </div>
+
+      <ul *ngIf="completedTasks.length > 0">
+        <li *ngFor="let task of completedTasks">
+          Titulo da tarefa: {{ task.title }} (Prioridade: {{ task.priority }})
+        </li>
+      </ul>
+
+      <button [routerLink]="['/']" class="btn btn-secondary">Voltar para
+        todas as tarefas</button>
+  </div>
+</main>
