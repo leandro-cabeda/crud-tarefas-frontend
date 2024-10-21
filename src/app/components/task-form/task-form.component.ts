@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class TaskFormComponent implements OnInit {
   task: Task = {
     title: '',
-    status: 'pending',
+    status: 'open',
     priority: 'low',
   };
 
@@ -26,8 +26,10 @@ export class TaskFormComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
+
     if (id) {
       this.taskService.getTask(id).subscribe((task: Task) => {
+        console.log(" task: ", task);
         this.task = task;
       });
     }

@@ -6,6 +6,7 @@ import { WebSocketService } from '../../services/websocket.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import {convertTextStatus, convertTextPriority } from '../../utils/index';
 
 @Component({
   selector: 'app-task-list',
@@ -16,6 +17,9 @@ import { RouterModule } from '@angular/router';
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
+  convertTextStatus = convertTextStatus;
+  convertTextPriority = convertTextPriority;
+
   searchControl = new FormControl('');
   taskSubscription: Subscription | null = null;
   filters = {
@@ -54,7 +58,7 @@ export class TaskListComponent implements OnInit {
     this.taskSubscription = this.webSocketService
       .listenToEvent('taskCreated')
       .subscribe((task: any) => {
-        console.log(task);
+        console.log("taskCreated listenToEvent task-list-component: "+task);
         this.tasks.push(task);
       }, (error) => {
         console.error('Erro ao carregar as tarefas do evento', error);

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ResponseAll, Task, TaskService } from '../../services/task.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { convertTextStatus, convertTextPriority } from '../../utils';
 
 @Component({
   selector: 'app-completed-tasks',
@@ -12,6 +13,8 @@ import { CommonModule } from '@angular/common';
 })
 export class CompletedTasksComponent implements OnInit {
   completedTasks: Task[] = [];
+  convertTextStatus = convertTextStatus;
+  convertTextPriority = convertTextPriority;
 
   constructor(private taskService: TaskService) { }
 

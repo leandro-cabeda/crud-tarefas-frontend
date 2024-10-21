@@ -2,57 +2,69 @@
   <div class="content">
     <h1>Tarefas</h1>
 
-    <button [routerLink]="['/create']" class="btn btn-primary">Adicionar Nova Tarefa</button>
+    <button [routerLink]="['/create']" class="btn btn-primary">Adicionar Nova
+      Tarefa</button>
 
-    <button [routerLink]="['/completed']" class="btn btn-secondary">Tarefas Concluídas</button>
+    <button [routerLink]="['/completed']" class="btn btn-secondary">Tarefas
+      Concluídas</button>
 
     <input [formControl]="searchControl" placeholder="Buscar por título" />
 
-    <div>
-      <label>Status:</label>
-      <select [(ngModel)]="filters.status" (change)="updateFilters()">
-        <option value>Todos</option>
-        <option value="pending">Pendente</option>
-        <option value="completed">Concluída</option>
-      </select>
+    <div style="display: block;">
+      <div>
+        <label>Status:</label>
+        <select [(ngModel)]="filters.status" (change)="updateFilters()">
+          <option value>Todos</option>
+          <option value="open">Aberta</option>
+          <option value="inProgress">Em Andamento</option>
+          <option value="pending">Pendente</option>
+          <option value="completed">Concluída</option>
+        </select>
 
-      <label>Prioridade:</label>
-      <select [(ngModel)]="filters.priority" (change)="updateFilters()">
-        <option value>Todas</option>
-        <option value="low">Baixa</option>
-        <option value="medium">Média</option>
-        <option value="high">Alta</option>
-      </select>
+        <label>Prioridade:</label>
+        <select [(ngModel)]="filters.priority" (change)="updateFilters()">
+          <option value>Todas</option>
+          <option value="low">Baixa</option>
+          <option value="medium">Média</option>
+          <option value="high">Alta</option>
+        </select>
+      </div>
 
-      <label>Ordenar por:</label>
-      <select [(ngModel)]="filters.sortBy" (change)="updateFilters()">
-        <option value>Selecione</option>
-        <option value="createdAt">Data de Criação</option>
-        <option value="priority">Prioridade</option>
-      </select>
+      <div>
+        <label>Ordenar por:</label>
+        <select [(ngModel)]="filters.sortBy" (change)="updateFilters()">
+          <option value>Selecione</option>
+          <option value="createdAt">Data de Criação</option>
+          <option value="priority">Prioridade</option>
+          <option value="status">Status</option>
+          <option value="title">Título</option>
+        </select>
 
-      <label>Ordem por:</label>
-      <select [(ngModel)]="filters.sortOrder" (change)="updateFilters()">
-        <option value>Selecione</option>
-        <option value="asc">Crescente</option>
-        <option value="desc">Decrescente</option>
-      </select>
+        <label>Ordem por:</label>
+        <select [(ngModel)]="filters.sortOrder" (change)="updateFilters()">
+          <option value>Selecione</option>
+          <option value="asc">Crescente</option>
+          <option value="desc">Decrescente</option>
+        </select>
+      </div>
 
-      <label>Data de Criação:</label>
-      <input type="date" [(ngModel)]="filters.createdAt"
-        (change)="updateFilters()" />
+      <div>
+        <label>Data de Criação:</label>
+        <input type="date" name="createdAt" [(ngModel)]="filters.createdAt"
+          (change)="updateFilters()" />
+      </div>
     </div>
 
-    <div *ngIf="tasks.length === 0">
+    <div style="text-align: center;" *ngIf="tasks.length === 0">
       <p>Nenhuma tarefa encontrada.</p>
     </div>
 
     <ul *ngIf="tasks.length > 0">
       <li *ngFor="let task of tasks">
-        {{ task.title }} - {{ task.status }} - {{ task.priority }} - {{
+        {{ task.title }} - {{ convertTextStatus(task.status) }} - {{ convertTextPriority(task.priority) }} - {{
         task.createdAt | date:'dd/MM/yyyy HH:mm:ss' }}
-        <button (click)="deleteTask(task.id!)">Excluir</button>
         <a [routerLink]="['/edit', task.id]">Editar</a>
+        <button (click)="deleteTask(task.id!)">Excluir</button>
       </li>
     </ul>
 

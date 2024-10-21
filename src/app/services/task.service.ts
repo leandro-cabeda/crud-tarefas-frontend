@@ -5,7 +5,7 @@ import { Observable, timeout } from 'rxjs';
 export interface Task {
   id?: number;
   title: string;
-  status: 'pending' | 'completed';
+  status: 'open' | 'inProgress' | 'pending' | 'completed';
   priority: 'low' | 'medium' | 'high';
   createdAt?: Date;
   updatedAt?: Date;

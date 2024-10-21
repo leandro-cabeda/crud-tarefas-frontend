@@ -1,23 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TaskListComponent } from './task-list.component';
 
-describe('TaskListComponent', () => {
+describe('TaskComponent', () => {
   let component: TaskListComponent;
   let fixture: ComponentFixture<TaskListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskListComponent]
-    })
-    .compileComponents();
+      declarations: [TaskListComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaskListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('Deve criar o componente', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('Deve exibir a lista de tarefas', () => {
+    const compiled = fixture.nativeElement;
+    expect(compiled.querySelectorAll('li').length).toBe(3);
+    expect(compiled.querySelector('li').textContent).toContain('Tarefa 1');
   });
 });
