@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class TaskFormComponent implements OnInit {
   task: Task = {
+    id: 0,
     title: '',
     status: 'open',
     priority: 'low',
